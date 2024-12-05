@@ -1,0 +1,8 @@
+.App.light {
+  color: rgba(17, 15, 15, 0.831);
+  background-color: white;
+}
+.App.dark {
+  color: white;
+  background-color: rgba(30, 29, 29, 0.594);
+}

@@ -40,3 +40,9 @@
 .read-the-docs {
   color: #888;
 }
+
+.react-switch {
+  position: absolute !important;
+  right: 5%;
+  top: 6%;
+}

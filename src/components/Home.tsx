@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import axios from "axios"
+import './home.css'
 //components
 import Navbar from './Navbar'
 import JobCard from './JobCard'
-
+import { ThemeContext } from '../../context/theme/Theme'
 
 const Home = () => {
   const [data,setData] = useState([])
-
+  const theme = useContext(ThemeContext);
+  console.log(theme)
   const getJobs = async ()=>{
     try {
       let response = await axios.get("http://localhost:5000/jobs");
@@ -26,11 +28,14 @@ const Home = () => {
 
   return (
     <>
+    <div className={`App ${theme}`}>
+
+   
     {/* Navbar Section */}
       <Navbar/>
 
       {/* <!-- Hero Section --> */}
-      <section className="bg-green-700 py-20 mb-4">
+      <section className={` bg-green-700 py-20 mb-4  `}>
         <div
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center"
         >
@@ -51,7 +56,7 @@ const Home = () => {
       <section className="py-4">
         <div className="container-xl lg:container m-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-lg">
-            <div className="bg-gray-100 p-6 rounded-lg shadow-md">
+            <div className={`bg-gray-100 ${theme} p-6 rounded-lg shadow-md`}>
               <h2 className="text-2xl font-bold">For Developers</h2>
               <p className="mt-2 mb-4">
                 Browse our Vue jobs and start your career today
@@ -104,6 +109,7 @@ const Home = () => {
           className="block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700"
         >View All Jobs</Link>
       </section>
+      </div>
     </>
   )
 }
