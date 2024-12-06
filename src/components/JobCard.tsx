@@ -1,17 +1,28 @@
 
 import { FaLocationDot } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
-
-const JobCard = ({singleJob} ) => {
-   
+import { ThemeContext } from '../../context/theme/Theme'
+import { useContext } from 'react'
+import '../components/home.css'
+export interface SingleJob {
+  type:string;
+  title:string;
+  description:string;
+  salary:string;
+  location:string;
+  
+}
+export type singleJobProps = {
+  singleJob:SingleJob
+}
+const JobCard = ({singleJob}:singleJobProps) => {
+   const theme = useContext(ThemeContext)
   return (
     <>
-   
-    
-            <div className="bg-white rounded-xl shadow-md relative">
+    <div className={`bg-white card ${theme} rounded-xl shadow-md relative`}>
               <div className="p-4">
                 <div className="mb-6">
-                  <div className="text-gray-600 my-2">{singleJob.type}</div>
+                  <div className={`card-title ${theme} my-2`}>{singleJob.type}</div>
                   <h3 className="text-xl font-bold">{singleJob.title}</h3>
                 </div>
 

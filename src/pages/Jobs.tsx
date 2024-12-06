@@ -6,6 +6,17 @@ import logo from "../assets/react.svg"
 //component
 import JobCard from '../components/JobCard';
 
+export interface SingleJob {
+  title:string;
+  type:string;
+  description:string;
+  location:string;
+  salary:string;
+  id:string;
+}
+// export type SingleJobProps ={
+//   singleJob:SingleJob;
+// }
 
 const Jobs = () => {
   const [jobData, setJobData] = useState([]);
@@ -24,9 +35,9 @@ const Jobs = () => {
   useEffect(()=>{
     getJobs()
   },[])
-  const handleChangeValue = (e) => {
+  const handleChangeValue = (e:React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value !== "") {
-      const temperaryarray = allJobs.filter((singleJob) => {
+      const temperaryarray = allJobs.filter((singleJob:SingleJob) => {
         return singleJob.title.toLowerCase().includes(e.target.value.toLowerCase());
       })
       setJobData(temperaryarray)
@@ -45,7 +56,7 @@ const Jobs = () => {
     <>
       <nav className="bg-green-700 border-b border-green-500">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-          <div className="flex h-20 items-center justify-between">
+          <div className="flex h-20 px-24 items-center justify-between">
             <div
               className="flex flex-1 items-center justify-center md:items-stretch md:justify-start"
             >
@@ -101,7 +112,7 @@ const Jobs = () => {
             
 
             
-            {jobData.length !== 0 ? jobData.map((job) => {
+            {jobData.length !== 0 ? jobData.map((job:SingleJob) => {
               return (
                 
                 <div key={job.id}><JobCard singleJob={job} /></div>

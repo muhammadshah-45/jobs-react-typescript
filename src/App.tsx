@@ -15,7 +15,7 @@ import Switch from 'react-switch'
 import {ThemeContext} from '../context/theme/Theme.tsx'
 
 function App() {
-  const [theme,setTheme] = useState('dark');
+  const [theme,setTheme] = useState('light');
   const [checked,setChecked] = useState(false)
   const handleChange =(check:boolean)=>{
     setChecked(!checked)

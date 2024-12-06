@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import logo from "../assets/react.svg"
+import '../components/home.css'
 import axios from 'axios';
+import { ThemeContext } from '../../context/theme/Theme';
+import { Company, JobEType, SingleJob } from '../components/types';
+
+
 
 const Add_job = () => {
   const location = useLocation();
@@ -15,7 +20,7 @@ const Add_job = () => {
   // }
   //All of these above from line 8 to 14  are equivalent in working
   const singleJob = location?.state?.singleJob;
-
+ const theme = useContext(ThemeContext)
 
 
   const [job, setJob] = useState({
@@ -41,7 +46,7 @@ const Add_job = () => {
   }, [])
 
 
-  function handleChange(e, key, company) {
+  function handleChange(e:JobEType, key:string, company?:string) {
     e.preventDefault();
     if (!company) {
       if (key === 'title') {
@@ -96,14 +101,14 @@ const Add_job = () => {
 
   }
 
-  const  handleSubmit = async (event)=>{
+  const  handleSubmit = async (event:JobEType)=>{
     event.preventDefault();
     try {
       if(singleJob){
-        let response = await axios.put(`http://localhost:5000/jobs/${singleJob.id}`,job)
+         await axios.put(`http://localhost:5000/jobs/${singleJob.id}`,job)
         console.log("Update api call")
       } else{
-        let response = await axios.post("http://localhost:5000/jobs",job)
+         await axios.post("http://localhost:5000/jobs",job)
         console.log("post api call")
       }
      
@@ -118,10 +123,8 @@ const Add_job = () => {
     <>
       <nav className="bg-green-700 border-b border-green-500">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-          <div className="flex h-20 items-center justify-between">
-            <div
-              className="flex flex-1 items-center justify-center md:items-stretch md:justify-start"
-            >
+          <div className="flex h-20 px-24 items-center justify-between">
+            <div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start">
               {/* <!-- Logo --> */}
               <NavLink className="flex flex-shrink-0 items-center mr-4" to="/">
                 <img className="h-10 w-auto" src={logo} alt="Vue Jobs" />
@@ -153,13 +156,13 @@ const Add_job = () => {
       <section className="bg-green-50">
         <div className="container m-auto max-w-2xl py-24">
           <div
-            className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0"
+            className={` add-card ${theme} px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0`} 
           >
             <form onSubmit={handleSubmit}>
               <h2 className="text-3xl text-center font-semibold mb-6">Add Job</h2>
 
               <div className="mb-4">
-                <label htmlFor="type" className="block text-gray-700 font-bold mb-2"
+                <label htmlFor="type" className="block font-bold mb-2"
                 >Job Type</label
                 >
                 <select
@@ -167,7 +170,7 @@ const Add_job = () => {
                   name="type"
                   value={job.type}
                   onChange={(e) => handleChange(e, "type")}
-                  className="border rounded w-full py-2 px-3"
+                  className="border rounded w-full text-black py-2 px-3"
                   required
 
                 >
@@ -179,7 +182,7 @@ const Add_job = () => {
               </div>
 
               <div className="mb-4">
-                <label className="block text-gray-700 font-bold mb-2"
+                <label className="block  font-bold mb-2"
                 >Job Listing Name</label >
                 <input
                   type="text"
@@ -195,7 +198,7 @@ const Add_job = () => {
               <div className="mb-4">
                 <label
                   htmlFor="description"
-                  className="block text-gray-700 font-bold mb-2"
+                  className="block  font-bold mb-2"
                 >Description</label>
                 <textarea
                   id="description"
@@ -209,14 +212,14 @@ const Add_job = () => {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="type" className="block text-gray-700 font-bold mb-2"
+                <label htmlFor="type" className="block font-bold mb-2"
                 >Salary</label>
                 <select
                   id="salary"
                   name="salary"
                   value={job.salary}
                   onChange={(e) => handleChange(e, "salary")}
-                  className="border rounded w-full py-2 px-3"
+                  className="border text-black rounded w-full py-2 px-3"
                   required
                 >
                   <option value="Under $50K">under $50K</option>
@@ -234,7 +237,7 @@ const Add_job = () => {
               </div>
 
               <div className="mb-4">
-                <label className="block text-gray-700 font-bold mb-2">
+                <label className="block  font-bold mb-2">
                   Location
                 </label>
                 <input
@@ -252,7 +255,7 @@ const Add_job = () => {
               <h3 className="text-2xl mb-5">Company Info</h3>
 
               <div className="mb-4">
-                <label htmlFor="company" className="block text-gray-700 font-bold mb-2"
+                <label htmlFor="company" className="block  font-bold mb-2"
                 >Company Name</label >
                 <input
                   type="text"
@@ -268,7 +271,7 @@ const Add_job = () => {
               <div className="mb-4">
                 <label
                   htmlFor="company_description"
-                  className="block text-gray-700 font-bold mb-2"
+                  className="block font-bold mb-2"
                 >Company Description</label>
                 <textarea
                   id="company_description"
@@ -284,7 +287,7 @@ const Add_job = () => {
               <div className="mb-4">
                 <label
                   htmlFor="contact_email"
-                  className="block text-gray-700 font-bold mb-2"
+                  className="block  font-bold mb-2"
                 >Contact Email</label>
                 <input
                   type="email"
@@ -301,7 +304,7 @@ const Add_job = () => {
                 className="mb-4">
                 <label
                   htmlFor="contact_phone"
-                  className="block text-gray-700 font-bold mb-2"
+                  className="block  font-bold mb-2"
                 >Contact Phone</label>
                 <input
                   type="tel"

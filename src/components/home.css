@@ -3,6 +3,38 @@
   background-color: white;
 }
 .App.dark {
+  color: black;
+  background-color: rgba(44, 42, 42, 0.68);
+}
+.text.light {
+  color: black;
+}
+.add-card.light {
+  color: black;
+  background-color: white;
+}
+.add-card.dark {
+  color: azure;
+  background-color: rgba(44, 42, 42, 0.68);
+}
+.card.light {
+  color: black;
+  background-color: white;
+}
+
+.card.dark {
   color: white;
-  background-color: rgba(30, 29, 29, 0.594);
+  background-color: rgb(44 42 42 / 71%);
+}
+
+.card-title.dark {
+  --tw-text-opacity: 1;
+  color: rgb(200 200 200);
+}
+.job.dark {
+  background-color: rgb(44 42 42 / 71%);
+  color: rgb(255, 255, 255);
+}
+.job.light {
+  background-color: white;
 }
