@@ -50,9 +50,9 @@ const Job = () => {
                 className="text-gray-500 mb-4 flex align-middle justify-center md:justify-start"
               >
                 <FaLocationDot
-                  className=" text-lg text-orange-700 mr-2 "
+                  className={`text-lg text-orange-700 card-location ${theme} mr-2 `}
                 ></FaLocationDot>
-                <p className="text-orange-700">{singleJob.location}</p>
+                <p className={`text-orange-700 card-location ${theme}`}>{singleJob.location}</p>
               </div>
             </div>
 
@@ -87,13 +87,13 @@ const Job = () => {
 
               <h3 className="text-xl">Contact Email:</h3>
 
-              <p className="my-2 bg-green-100 p-2 font-bold">
+              <p className={`my-2 bg-green-100 contact ${theme} p-2 font-bold`}>
                 {singleJob.company.contactEmail}
               </p>
 
               <h3 className="text-xl">Contact Phone:</h3>
 
-              <p className="my-2 bg-green-100 p-2 font-bold">{singleJob.company.contactPhone}</p>
+              <p className={`my-2 bg-green-100 contact ${theme} p-2 font-bold`}>{singleJob.company.contactPhone}</p>
             </div>
 
             {/* <!-- Manage --> */}

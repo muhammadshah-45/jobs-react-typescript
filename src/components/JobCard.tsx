@@ -15,7 +15,7 @@ export interface SingleJob {
 export type singleJobProps = {
   singleJob:SingleJob
 }
-const JobCard = ({singleJob}:singleJobProps) => {
+const JobCard = ({singleJob}:singleJobProps):any => {
    const theme = useContext(ThemeContext)
   return (
     <>
@@ -35,7 +35,7 @@ const JobCard = ({singleJob}:singleJobProps) => {
                 <div className="border border-gray-100 mb-5"></div>
 
                 <div className="flex flex-col lg:flex-row justify-between mb-4">
-                  <div className="text-orange-700 mb-3">
+                  <div className={`text-orange-700 card-location ${theme} mb-3`}>
                     <FaLocationDot className=" text-lg"></FaLocationDot>
                     {singleJob.location}
                   </div>

@@ -33,12 +33,12 @@ function App() {
     className='react-switch'
     onChange={handleChange}
     checked={checked}>
-
+    
     </Switch>
       <Router>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/card' element={<JobCard />} />
+          <Route path='/card' element={<JobCard  />} />
 
           <Route path='/job' element={<Job />} />
           <Route path='/jobs' element={<Jobs />} />

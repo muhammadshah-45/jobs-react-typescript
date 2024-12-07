@@ -9,8 +9,7 @@ import { ThemeContext } from '../../context/theme/Theme'
 
 const Home = () => {
   const [data,setData] = useState([])
-  const theme = useContext(ThemeContext);
-  console.log(theme)
+  const theme = useContext(ThemeContext);  
   const getJobs = async ()=>{
     try {
       let response = await axios.get("http://localhost:5000/jobs");

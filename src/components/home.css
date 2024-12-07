@@ -38,3 +38,10 @@
 .job.light {
   background-color: white;
 }
+.card-location.dark {
+  color: rgb(255, 144, 122);
+}
+.contact.dark {
+  color: rgb(132, 129, 129);
+  font-weight: 600;
+}
