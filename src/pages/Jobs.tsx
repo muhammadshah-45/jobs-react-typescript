@@ -1,103 +1,111 @@
-import React, { useEffect, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import axios from "axios";
 //logo
-import logo from "../assets/react.svg"
+import logo from "../assets/react.svg";
 //component
-import JobCard from '../components/JobCard';
-import { useDispatch, useSelector } from 'react-redux';
-import {fetchJobs ,filterJobs,clearFilteredJobs} from '../redux/jobSlice/JobSlice.jsx';
+import JobCard from "../components/JobCard";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchJobs, filterJobs } from "../redux/jobSlice/JobSlice";
 export interface SingleJob {
-  title:string;
-  type:string;
-  description:string;
-  location:string;
-  salary:string;
-  id:string;
+  title: string;
+  type: string;
+  description: string;
+  location: string;
+  salary: string;
+  id: string;
 }
 // export type SingleJobProps ={
 //   singleJob:SingleJob;
 // }
 
 const Jobs = () => {
-  const {clearFilteredJobs,filteredJobs,status,error} = useSelector(state=> state.jobs);
+  const { allJobs, jobData, status, error } = useSelector(
+    (state) => state.jobs
+  );
+  console.log("allJobs", allJobs);
+  console.log("jobData", jobData);
   const dispatch = useDispatch();
-  useEffect(()=>{
-   if(status === 'idle'){
-    dispatch(fetchJobs())
-   }
-  },[dispatch])
-  const handleChangeValue = (e:React.ChangeEvent<HTMLInputElement>)=>{
-    const value = e.target.value;  
-    if (value.trim() === '') {  
-        dispatch(clearFilteredJobs()); // Reset to all jobs if search is cleared  
-    } else {  
-        dispatch(filterJobs(value)); // Filter jobs based on input  
+
+  useEffect(() => {
+    if (status === "idle") {
+      dispatch(fetchJobs());
     }
-  }
-  
+  }, [dispatch, status]);
+  const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(filterJobs(e.target.value));
+  };
+
+  // const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const filterValue = e.target.value;
+  //   return filterValue === "" ? jobs
+  //     : jobs.filter((singleJob) =>
+  //         singleJob.title.toLowerCase().includes(filterValue)
+  //       );
+  // };
   // const [jobData, setJobData] = useState([]);
-  // const [allJobs,setAllJobs] = useState([])
+  // const [allJobs, setAllJobs] = useState([]);
 
-  // const getJobs = async ()=> {
+  // const getJobs = async () => {
   //   try {
-  //     let response =await axios.get("http://localhost:5000/jobs");
-  //     setJobData(response.data)
-  //     setAllJobs(response.data)
+  //     let response = await axios.get("http://localhost:5000/jobs");
+  //     setJobData(response.data);
+  //     setAllJobs(response.data);
   //   } catch (error) {
-  //     console.log("Jobs page Error",error)
+  //     console.log("Jobs page Error", error);
   //   }
-  // }
-  
-  // useEffect(()=>{
-  //   getJobs()
-  // },[])
-  // const handleChangeValue = (e:React.ChangeEvent<HTMLInputElement>) => {
+  // };
+
+  // useEffect(() => {
+  //   getJobs();
+  // }, []);
+  // const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   if (e.target.value !== "") {
-  //     const temperaryarray = allJobs.filter((singleJob:SingleJob) => {
-  //       return singleJob.title.toLowerCase().includes(e.target.value.toLowerCase());
-  //     })
-  //     setJobData(temperaryarray)
-      
+  //     const temperaryarray = allJobs.filter((singleJob: SingleJob) => {
+  //       return singleJob.title
+  //         .toLowerCase()
+  //         .includes(e.target.value.toLowerCase());
+  //     });
+  //     setJobData(temperaryarray);
   //   } else {
-  //     setJobData(allJobs)
+  //     setJobData(allJobs);
   //   }
-    
-
-   
-  // }
-
-  
+  // };
 
   return (
     <>
       <nav className="bg-green-700 border-b border-green-500">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="flex h-20 px-24 items-center justify-between">
-            <div
-              className="flex flex-1 items-center justify-center md:items-stretch md:justify-start"
-            >
+            <div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start">
               {/* <!-- Logo --> */}
               <NavLink className="flex flex-shrink-0 items-center mr-4" to="/">
                 <img className="h-10 w-auto" src={logo} alt="Vue Jobs" />
-                <span className="hidden md:block text-white text-2xl font-bold ml-2"
-                >Vue Jobs</span>
+                <span className="hidden md:block text-white text-2xl font-bold ml-2">
+                  Vue Jobs
+                </span>
               </NavLink>
               <div className="md:ml-auto">
                 <div className="flex space-x-2">
                   <Link
                     to="/"
-                    className="text-white  hover:bg-gray-900 hover:text-white rounded-md px-3 py-2">Home</Link>
+                    className="text-white  hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+                  >
+                    Home
+                  </Link>
 
                   <Link
                     to="/jobs"
                     className="text-white bg-green-900 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                  >Jobs</Link>
+                  >
+                    Jobs
+                  </Link>
                   <Link
                     to="/add-job"
                     className="text-white hover:bg-green-900  hover:text-white  rounded-md px-3 py-2"
-                  >Add Job</Link>
-
+                  >
+                    Add Job
+                  </Link>
                 </div>
               </div>
             </div>
@@ -111,7 +119,6 @@ const Jobs = () => {
             <input
               type="text"
               onChange={(e) => handleChangeValue(e)}
-
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500"
               placeholder="Filter jobs..."
             />
@@ -126,22 +133,48 @@ const Jobs = () => {
             Browse Jobs
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
+            {/* {status === "loading" ? (
+              <p>Loading...</p>
+            ) : status === "failed" ? (
+              <p>{error}</p>
+            ) : jobs.length > 0 ? 
+              handleChangeValue(e).map((job) => (
+                <div key={job.id}>
+                  <JobCard singleJob={job} />
+                </div>
+              ))
+            ) : (
+              <p className="text-center">No Job available yet...</p>
+            )} */}
+            {/* {jobs.length !== 0 ? (
+              jobs.map((job: SingleJob) => {
+                return (
+                  <div key={job.id}>
+                    <JobCard singleJob={job} />
+                  </div>
+                );
+              })
+            ) : (
+              <p className="text-center">No Job available yet...</p>
+            )} */}
 
-            {status ==='failed' && <p>{error}</p> }
-            {filteredJobs.length !== 0 ? filteredJobs.map((job:SingleJob) => {
-              return (
-                <div key={job.id}><JobCard singleJob={job} /></div>
+            {status === "loading" && <p>Loading...</p>}
+            {status === "failed" && <p>{error}</p>}
+            {jobData.length > 0 ? (
+              jobData.map((job: SingleJob) => (
+                <div key={job.id}>
+                  <JobCard singleJob={job} />
+                </div>
+              ))
+              ) : (
+                <p className="text-center">No Job available yet...</p>
+                )}
                 
-              )
-            }) : <p className='text-center'>No Job available yet...</p>} 
-            
           </div>
         </div>
       </section>
-
     </>
-  )
-}
+  );
+};
 
-export default Jobs
+export default Jobs;
