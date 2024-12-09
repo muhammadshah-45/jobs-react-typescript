@@ -5,7 +5,8 @@ import axios from 'axios';
 import logo from "../assets/react.svg"
 //component
 import JobCard from '../components/JobCard';
-
+import { useDispatch, useSelector } from 'react-redux';
+import {fetchJobs ,filterJobs,clearFilteredJobs} from '../redux/jobSlice/JobSlice.jsx';
 export interface SingleJob {
   title:string;
   type:string;
@@ -19,36 +20,52 @@ export interface SingleJob {
 // }
 
 const Jobs = () => {
-  const [jobData, setJobData] = useState([]);
-  const [allJobs,setAllJobs] = useState([])
-
-  const getJobs = async ()=> {
-    try {
-      let response =await axios.get("http://localhost:5000/jobs");
-      setJobData(response.data)
-      setAllJobs(response.data)
-    } catch (error) {
-      console.log("Jobs page Error",error)
+  const {clearFilteredJobs,filteredJobs,status,error} = useSelector(state=> state.jobs);
+  const dispatch = useDispatch();
+  useEffect(()=>{
+   if(status === 'idle'){
+    dispatch(fetchJobs())
+   }
+  },[dispatch])
+  const handleChangeValue = (e:React.ChangeEvent<HTMLInputElement>)=>{
+    const value = e.target.value;  
+    if (value.trim() === '') {  
+        dispatch(clearFilteredJobs()); // Reset to all jobs if search is cleared  
+    } else {  
+        dispatch(filterJobs(value)); // Filter jobs based on input  
     }
   }
   
-  useEffect(()=>{
-    getJobs()
-  },[])
-  const handleChangeValue = (e:React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value !== "") {
-      const temperaryarray = allJobs.filter((singleJob:SingleJob) => {
-        return singleJob.title.toLowerCase().includes(e.target.value.toLowerCase());
-      })
-      setJobData(temperaryarray)
+  // const [jobData, setJobData] = useState([]);
+  // const [allJobs,setAllJobs] = useState([])
+
+  // const getJobs = async ()=> {
+  //   try {
+  //     let response =await axios.get("http://localhost:5000/jobs");
+  //     setJobData(response.data)
+  //     setAllJobs(response.data)
+  //   } catch (error) {
+  //     console.log("Jobs page Error",error)
+  //   }
+  // }
+  
+  // useEffect(()=>{
+  //   getJobs()
+  // },[])
+  // const handleChangeValue = (e:React.ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.value !== "") {
+  //     const temperaryarray = allJobs.filter((singleJob:SingleJob) => {
+  //       return singleJob.title.toLowerCase().includes(e.target.value.toLowerCase());
+  //     })
+  //     setJobData(temperaryarray)
       
-    } else {
-      setJobData(allJobs)
-    }
+  //   } else {
+  //     setJobData(allJobs)
+  //   }
     
 
    
-  }
+  // }
 
   
 
@@ -111,10 +128,9 @@ const Jobs = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             
 
-            
-            {jobData.length !== 0 ? jobData.map((job:SingleJob) => {
+            {status ==='failed' && <p>{error}</p> }
+            {filteredJobs.length !== 0 ? filteredJobs.map((job:SingleJob) => {
               return (
-                
                 <div key={job.id}><JobCard singleJob={job} /></div>
                 
               )

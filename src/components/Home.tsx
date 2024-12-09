@@ -6,24 +6,30 @@ import './home.css'
 import Navbar from './Navbar'
 import JobCard from './JobCard'
 import { ThemeContext } from '../../context/theme/Theme'
-
+import { useDispatch, useSelector } from 'react-redux'
+import {fetchJobs} from '../redux/jobSlice/JobSlice.jsx'
 const Home = () => {
-  const [data,setData] = useState([])
-  const theme = useContext(ThemeContext);  
-  const getJobs = async ()=>{
-    try {
-      let response = await axios.get("http://localhost:5000/jobs");
-      setData(response.data)
-   
-    } catch (error) {
-      console.log("getJob API Error",error)
-    }
-
-  }
-
+  // const [data,setData] = useState([])
+  const theme = useContext(ThemeContext); 
+  const {jobs ,status,error} = useSelector(state=>state.jobs);
+  const dispatch = useDispatch() 
   useEffect(()=>{
-  getJobs()
+    dispatch(fetchJobs())
   },[])
+  // const getJobs = async ()=>{
+  //   try {
+  //     let response = await axios.get("http://localhost:5000/jobs");
+  //     setData(response.data)
+   
+  //   } catch (error) {
+  //     console.log("getJob API Error",error)
+  //   }
+
+  // }
+
+  // useEffect(()=>{
+  // getJobs()
+  // },[])
 
   return (
     <>
@@ -91,9 +97,18 @@ const Home = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* <!-- Job Listing 1 --> */}
-          
-            {data.map((singleJob,index)=> index < 3 ? <div key={singleJob.id}> <JobCard  singleJob={singleJob}/> </div> : null
-            )}
+            {status ==='loading' && <p>{status}</p> }
+            {status ==='failed' &&  <p>{error}</p> }
+
+            {status === 'succeeded' && jobs.length > 0 ? (  
+              jobs.slice(0, 3).map((singleJob) => (  
+                <div key={singleJob.id}>  
+                  <JobCard singleJob={singleJob} />  
+                </div>  
+              ))  
+            ) : (  
+              <p className='text-center'>No jobs available at the moment.</p>  
+            )}  
             {/* 
           <!-- Job Listing 2 --> */}
           
