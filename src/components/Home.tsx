@@ -97,18 +97,25 @@ const Home = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* <!-- Job Listing 1 --> */}
-            {status ==='loading' && <p>{status}</p> }
+            {status ==='loading' && <p>Loading...</p> }
             {status ==='failed' &&  <p>{error}</p> }
 
-            {status === 'succeeded' && jobs.length > 0 ? (  
-              jobs.slice(0, 3).map((singleJob) => (  
+            {jobs.slice(0,3).map((singleJob,index)=>(
+              index < 3 ? (
+                <div key={singleJob.id}>
+                  <JobCard singleJob={singleJob} />
+                </div>
+              ) : ( <p>NO Job available yet</p> )
+            ))}
+              {/* {jobs.slice(0, 3).map((singleJob,index) => (  
+                index < 3 ?
                 <div key={singleJob.id}>  
                   <JobCard singleJob={singleJob} />  
                 </div>  
               ))  
             ) : (  
               <p className='text-center'>No jobs available at the moment.</p>  
-            )}  
+            )}   */}
             {/* 
           <!-- Job Listing 2 --> */}
           

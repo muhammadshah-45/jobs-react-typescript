@@ -10,18 +10,24 @@ export const JobSlice = createSlice({
     name:"jobs",
     initialState:{
         jobs:[],
-        
-        filteredJobs:[],
+        allJobs:[],
+        jobData:[],
         status:"idle",
         error:null,
     },
     reducers:{
         filterJobs:(state,action)=>{
-         const searchTerm = action.payload.toLowerCase();
-         state.filteredJobs = state.jobs.filter(job=> job.title.toLowerCase().includes(searchTerm))
+            if(action.payload !== ''){
+                const filtered = state.allJobs.filter((job)=>job.title.toLowerCase().includes(action.payload.toLowerCase()));
+                state.jobData = filtered
+            }else{
+                state.jobData = state.allJobs;
+            }
+         
         },
-        clearFilteredJobs: (state) => {  
-            state.filteredJobs = [...state.jobs]; // Reset to all jobs  
+        clearFilteredJobs: (state,action) => { 
+            state.jobData = action.payload;
+            state.allJobs = action.payload; 
         }, 
         
     },
@@ -32,7 +38,8 @@ export const JobSlice = createSlice({
         .addCase(fetchJobs.fulfilled,(state,action)=>{
             state.status = 'succeeded';
             state.jobs =action.payload;
-            state.filteredJobs=action.payload;
+            state.allJobs =action.payload;
+            state.jobData=action.payload;
             
         })
         .addCase(fetchJobs.rejected,(state,action)=>{
