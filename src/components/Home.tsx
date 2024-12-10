@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchJobs } from "../redux/jobSlice/JobSlice.jsx";
 const Home = () => {
   const dispatch = useDispatch();
-  const { jobs, status, error } = useSelector((state) => {
+  const { jobs, status, error } = useSelector((state:any) => {
    return state.jobs;
   });
  

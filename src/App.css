@@ -45,4 +45,16 @@
   position: absolute !important;
   right: 2%;
   top: 4.5%;
+
 }
+.react-icons{
+  position: absolute;
+  /* background-color: red; */
+  top: 10%;
+  left: 11%;
+}
+/* .react-icons .sun{
+  position: absolute;
+  top: 9%;
+  left: 10%;
+} */

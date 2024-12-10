@@ -13,6 +13,7 @@ import Add_job from './pages/Add_job'
 import Not_found from './pages/Not_found'
 import Switch from 'react-switch'
 import {ThemeContext} from '../context/theme/Theme.tsx'
+import { IoMoon, IoSunny } from 'react-icons/io5'
 
 function App() {
   const [theme,setTheme] = useState('light');
@@ -29,10 +30,14 @@ function App() {
     <>
     <ThemeContext.Provider value={theme}>
 
-    <Switch 
+    <Switch checkedHandleIcon={<IoMoon className='react-icons' size={20}/>}
+    uncheckedHandleIcon={<IoMoon className='react-icons sun' size={20}/>}
+    checkedIcon={<IoSunny className='react-icons' color='red' size={20}/>}
+    uncheckedIcon={<IoSunny className='react-icons'  size={20}/>}
     className='react-switch'
     onChange={handleChange}
     checked={checked}>
+      
     
     </Switch>
       <Router>
