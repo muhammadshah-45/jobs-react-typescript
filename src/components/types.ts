@@ -8,7 +8,7 @@ export interface Company {
     contactPhone:string;
   }
   export interface SingleJob {
-    id:string;
+    id:string | number;
     salary:string;
     description:string;
     type:string;
@@ -16,4 +16,24 @@ export interface Company {
     title:string;
     company:Company;
   
+  }
+  export type JobType = {
+    type:string;
+    title:string;
+    description:string;
+    salary:string;
+    location:string;
+  }
+  export type JobIdType = number | string;
+
+  export type Job = {
+    id:number;
+    title:string;
+  } 
+  export type JobsState ={
+    jobs:Job[];
+    jobData:Job[];
+    allJobs:Job[];
+    status:'idle' | "loading" | 'failed' | 'succeeded';
+    error: string | null;
   }

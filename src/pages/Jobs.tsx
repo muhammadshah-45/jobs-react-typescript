@@ -1,24 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-import axios from "axios";
+
 //logo
 import logo from "../assets/react.svg";
 //component
 import JobCard from "../components/JobCard";
 import { useDispatch, useSelector } from "react-redux";
 import {RootState,AppDispatch} from '../redux/Store.js'
-import { fetchJobs, filterJobs } from "../redux/jobSlice/JobSlice";
-export interface SingleJob {
-  title: string;
-  type: string;
-  description: string;
-  location: string;
-  salary: string;
-  id: string;
-}
-// export type SingleJobProps ={
-//   singleJob:SingleJob;
-// }
+import { fetchJobs, filterJobs } from "../redux/jobSlice/JobSlice.js";
+import { JobEType } from "../components/types.js";
+
 
 const Jobs = () => {
   const {  jobData, status, error } = useSelector((state:RootState) => state.jobs);
@@ -112,9 +103,9 @@ const Jobs = () => {
             {status === "loading" && <p>Loading...</p>}
             {status === "failed" && <p>{error}</p>}
             {jobData.length > 0 ? (
-              jobData.map((job: SingleJob) => (
+              jobData.map((job:JobEType) => (
                 <div key={job.id}>
-                  <JobCard singleJob={job} />
+                  <JobCard singleJob ={job} />
                 </div>
               ))
               ) : (

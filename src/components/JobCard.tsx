@@ -1,21 +1,12 @@
-
 import { FaLocationDot } from 'react-icons/fa6'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { ThemeContext } from '../../context/theme/Theme'
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import '../components/home.css'
-export interface SingleJob {
-  type:string;
-  title:string;
-  description:string;
-  salary:string;
-  location:string;
-  
-}
-export type singleJobProps = {
-  singleJob:SingleJob
-}
-const JobCard:React.FC<singleJobProps> = ({singleJob}) => {
+import { JobType } from './types'
+
+
+const JobCard = ({singleJob}:{singleJob:JobType}) => {
    const theme = useContext(ThemeContext)
    
   return (

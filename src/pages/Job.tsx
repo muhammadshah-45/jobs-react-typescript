@@ -1,18 +1,19 @@
-import React, { useContext } from 'react'
+import  { useContext } from 'react'
 import { FaArrowLeft ,FaLocationDot} from "react-icons/fa6";
 import { Link, useLocation} from 'react-router-dom';
 import '../components/home.css'
 //components
 import Navbar from '../components/Navbar';
-import axios from 'axios';
+
 import { ThemeContext } from '../../context/theme/Theme';
-import {SingleJob} from '../components/types'
+import {JobIdType, SingleJob} from '../components/types'
 import toast from 'react-hot-toast';
 import {deleteJob} from '../redux/jobSlice/JobSlice.js'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../redux/Store.js';
 const Job = () => {
-  const {jobData ,status,error} = useSelector(state=>state.jobs);
-  const dipatch = useDispatch();
+ 
+  const dipatch:AppDispatch = useDispatch();
   const location = useLocation();
   const {singleJob}:{singleJob:SingleJob} = location.state || {singleJob:null};
  const theme = useContext(ThemeContext)
@@ -24,7 +25,7 @@ const Job = () => {
   //     console.log("Delete Job Error",error)
   //   }
   // }
-  const handleDeleteJob =(jobId)=>{
+  const handleDeleteJob =(jobId:JobIdType)=>{
     if(window.confirm("are you sure to delete this job?")){
       dipatch(deleteJob(jobId));
 

@@ -1,24 +1,14 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { JobIdType ,Job ,JobsState} from "../../components/types";
 
-interface Job {
-  id:number;
-  title:string;
-} 
-interface JobsState {
-  jobs:Job[];
-  jobData:Job[];
-  allJobs:Job[];
-  status:'idle' | "loading" | 'failed' | 'succeeded';
-  error: string | null;
-}
  export const fetchJobs = createAsyncThunk<Job[],void>("jobs/fetchJobs", async () => {
     
     let response = await axios.get<Job[]>("http://localhost:5000/jobs");
     return response.data;
   });
 
-  export const deleteJob = createAsyncThunk<number,number>('jobs/deleteJob', async (jobId)=>{
+  export const deleteJob = createAsyncThunk('jobs/deleteJob', async (jobId:JobIdType)=>{
      await axios.delete(`http://localhost:5000/jobs/${jobId}`)
      return jobId;
   })

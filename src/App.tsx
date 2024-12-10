@@ -32,7 +32,7 @@ function App() {
 
     <Switch checkedHandleIcon={<IoMoon className='react-icons' size={20}/>}
     uncheckedHandleIcon={<IoMoon className='react-icons sun' size={20}/>}
-    checkedIcon={<IoSunny className='react-icons' color='red' size={20}/>}
+    checkedIcon={<IoSunny className='react-icons' color='yellow' size={20}/>}
     uncheckedIcon={<IoSunny className='react-icons'  size={20}/>}
     className='react-switch'
     onChange={handleChange}
