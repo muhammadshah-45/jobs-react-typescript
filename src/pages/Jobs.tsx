@@ -6,6 +6,7 @@ import logo from "../assets/react.svg";
 //component
 import JobCard from "../components/JobCard";
 import { useDispatch, useSelector } from "react-redux";
+import {RootState,AppDispatch} from '../redux/Store.js'
 import { fetchJobs, filterJobs } from "../redux/jobSlice/JobSlice";
 export interface SingleJob {
   title: string;
@@ -20,9 +21,9 @@ export interface SingleJob {
 // }
 
 const Jobs = () => {
-  const {  jobData, status, error } = useSelector((state) => state.jobs);
+  const {  jobData, status, error } = useSelector((state:RootState) => state.jobs);
   
-  const dispatch = useDispatch();
+  const dispatch:AppDispatch = useDispatch();
 
   useEffect(() => {
     if (status === "idle") {

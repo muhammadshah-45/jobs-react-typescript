@@ -6,7 +6,7 @@ import axios from 'axios';
 import { ThemeContext } from '../../context/theme/Theme';
 import { Company, JobEType, SingleJob } from '../components/types';
 import toast from 'react-hot-toast';
-import { addJob ,updateJob} from '../redux/jobSlice/JobSlice.jsx' 
+import { addJob ,updateJob} from '../redux/jobSlice/JobSlice.js' 
 import { useDispatch, useSelector } from 'react-redux';
 
 

@@ -8,7 +8,7 @@ import axios from 'axios';
 import { ThemeContext } from '../../context/theme/Theme';
 import {SingleJob} from '../components/types'
 import toast from 'react-hot-toast';
-import {deleteJob} from '../redux/jobSlice/jobSlice.jsx'
+import {deleteJob} from '../redux/jobSlice/JobSlice.js'
 import { useDispatch, useSelector } from 'react-redux';
 const Job = () => {
   const {jobData ,status,error} = useSelector(state=>state.jobs);

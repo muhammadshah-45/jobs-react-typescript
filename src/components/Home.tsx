@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+
 import "./home.css";
 //components
 import Navbar from "./Navbar";
 import JobCard from "./JobCard";
 import { ThemeContext } from "../../context/theme/Theme";
 import { useSelector, useDispatch } from "react-redux";
-
-import { fetchJobs } from "../redux/jobSlice/JobSlice.jsx";
-const Home = () => {
-  const dispatch = useDispatch();
-  const { jobs, status, error } = useSelector((state:any) => {
+import {RootState, AppDispatch} from '../redux/Store.js'
+import { fetchJobs } from "../redux/jobSlice/JobSlice.js";
+const Home:React.FC = () => {
+  const dispatch:AppDispatch = useDispatch();
+  const { jobs, status, error } = useSelector((state:RootState) => {
    return state.jobs;
   });
  
@@ -87,7 +87,7 @@ const Home = () => {
               {status === "loading" && <p>Loading...</p>}
               {status === "failed" && <p>{error}</p>}
 
-              {jobs.slice(0, 3).map((singleJob, index) =>
+              {jobs.slice(0, 3).map((singleJob:any,index:any) =>
                 index < 3 ? (
                   <div key={singleJob.id}>
                     <JobCard singleJob={singleJob} />
