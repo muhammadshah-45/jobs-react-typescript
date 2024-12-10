@@ -48,7 +48,7 @@ function App() {
           <Route path='/job' element={<Job />} />
           <Route path='/jobs' element={<Jobs />} />
           <Route path='/add-job' element={<Add_job />} />
-          <Route path='/not-found' element={<Not_found />}></Route>
+         
         </Routes>
       </Router>
       </ThemeContext.Provider>
