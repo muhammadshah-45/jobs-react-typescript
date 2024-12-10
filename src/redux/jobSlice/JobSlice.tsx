@@ -17,7 +17,7 @@ import { JobIdType ,Job ,JobsState} from "../../components/types";
      let response = await axios.post<Job>("http://localhost:5000/jobs",newjob)
       return response.data;
   })
-  export const updateJob = createAsyncThunk<Job,Job>('jobs/updateJob',async (updatedJob)=>{
+  export const updateJob = createAsyncThunk('jobs/updateJob',async (updatedJob:Job)=>{
       let response = await axios.put<Job>(`http://localhost:5000/jobs/${updatedJob.id}`,updatedJob);
       return response.data;
   })

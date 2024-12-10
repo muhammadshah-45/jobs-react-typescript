@@ -37,3 +37,6 @@ export interface Company {
     status:'idle' | "loading" | 'failed' | 'succeeded';
     error: string | null;
   }
+
+
+  

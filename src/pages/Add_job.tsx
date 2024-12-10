@@ -1,19 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import logo from "../assets/react.svg"
 import '../components/home.css'
-import axios from 'axios';
+
 import { ThemeContext } from '../../context/theme/Theme';
-import { Company, JobEType, SingleJob } from '../components/types';
+import { JobEType } from '../components/types';
 import toast from 'react-hot-toast';
 import { addJob ,updateJob} from '../redux/jobSlice/JobSlice.js' 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../redux/Store.js';
 
 
 const Add_job = () => {
   const location = useLocation();
-  const {updatedJob } = useSelector(state=>state.jobs)
-  const dispatch = useDispatch()
+  const dispatch:AppDispatch = useDispatch()
   // const singleJob =location? location.state ? location.state.singleJob : null:null;
   // const singleJob=location?.state?.singleJob
   // if(location){
@@ -109,11 +109,11 @@ const Add_job = () => {
     try {  
       if (singleJob) {  
         // Update job  
-        const updatedJob = await dispatch(updateJob({ ...job, id: singleJob.id })).unwrap();  
+       await dispatch(updateJob({ ...job, id: singleJob.id })).unwrap();  
         toast.success("Job updated successfully");  
       } else {  
         // Add job  
-        const newJob = await dispatch(addJob(job)).unwrap();  
+         await dispatch(addJob(job)).unwrap();  
         toast.success("Job added successfully");  
         setJob({ // Reset the form after adding  
           title: "",  
