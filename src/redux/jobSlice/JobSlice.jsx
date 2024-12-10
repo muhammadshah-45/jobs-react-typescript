@@ -13,6 +13,14 @@ import axios from "axios";
      return jobId;
   })
 
+  export const addJob = createAsyncThunk('jobs/addJob',async (newjob)=>{
+     let response = await axios.post("http://localhost:5000/jobs",newjob)
+      return response.data;
+  })
+  export const updateJob = createAsyncThunk('jobs/updateJob',async (updatedJob)=>{
+      let response = await axios.put(`http://localhost:5000/jobs/${updatedJob.id}`,updatedJob);
+      return response.data;
+  })
 const initialState = {
   jobs: [],
   jobData: [],
@@ -59,6 +67,21 @@ export const JobSlice = createSlice({
         state.status = 'failed';
         state.error = action.error.message;
       })
+      .addCase(addJob.fulfilled,(state,action)=>{
+          state.jobs.push(action.payload)
+      })
+      .addCase(updateJob.fulfilled, (state, action) => {  
+        const index = state.jobs.findIndex(job => job.id === action.payload.id);  
+        if (index !== -1) {  
+          state.jobs[index] = action.payload; // Update the existing job  
+        }  
+      })
+      // .addCase(updateJob.fulfilled, (state, action) => {  
+      //   const index = state.jobs.findIndex(job => job.id === action.payload.id);  
+      //   if (index !== -1) {  
+      //     state.jobs[index] = action.payload; // Update the existing job  
+      //   }  
+      // });
   },
 });
 export const { filterJobs, setJobs } = JobSlice.actions;

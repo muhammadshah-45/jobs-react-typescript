@@ -6,12 +6,14 @@ import axios from 'axios';
 import { ThemeContext } from '../../context/theme/Theme';
 import { Company, JobEType, SingleJob } from '../components/types';
 import toast from 'react-hot-toast';
-
+import { addJob ,updateJob} from '../redux/jobSlice/JobSlice.jsx' 
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const Add_job = () => {
   const location = useLocation();
-
+  const {updatedJob } = useSelector(state=>state.jobs)
+  const dispatch = useDispatch()
   // const singleJob =location? location.state ? location.state.singleJob : null:null;
   // const singleJob=location?.state?.singleJob
   // if(location){
@@ -44,9 +46,9 @@ const Add_job = () => {
     if (singleJob !== null && singleJob !== undefined) {
       setJob(singleJob)
     }
-  }, [])
+  }, [singleJob])
 
-
+ 
   function handleChange(e:JobEType, key:string, company?:string) {
     e.preventDefault();
     if (!company) {
@@ -104,18 +106,33 @@ const Add_job = () => {
 
   const  handleSubmit = async (event:JobEType)=>{
     event.preventDefault();
-    try {
-      if(singleJob){
-         await axios.put(`http://localhost:5000/jobs/${singleJob.id}`,job)
-        console.log("Update api call")
-      } else{
-         await axios.post("http://localhost:5000/jobs",job)
-        toast.success("Job added successfully")
-      }
-     
-    } catch (error) {
-      console.log("addJobError",error)
-    }
+    try {  
+      if (singleJob) {  
+        // Update job  
+        const updatedJob = await dispatch(updateJob({ ...job, id: singleJob.id })).unwrap();  
+        toast.success("Job updated successfully");  
+      } else {  
+        // Add job  
+        const newJob = await dispatch(addJob(job)).unwrap();  
+        toast.success("Job added successfully");  
+        setJob({ // Reset the form after adding  
+          title: "",  
+          type: "",  
+          location: "",  
+          description: "",  
+          salary: "",  
+          company: {  
+            name: "",  
+            description: "",  
+            contactEmail: "",  
+            contactPhone: ""  
+          },  
+        });  
+      }  
+    } catch (error) {  
+      console.error("Error adding/updating job:", error);  
+      toast.error("Failed to save job");  
+    }  
   }
 
 

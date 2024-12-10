@@ -20,10 +20,8 @@ export interface SingleJob {
 // }
 
 const Jobs = () => {
-  const { allJobs, jobData, status, error } = useSelector(
-    (state) => state.jobs);
-  console.log("allJobs", allJobs);
-  console.log("jobData", jobData);
+  const {  jobData, status, error } = useSelector((state) => state.jobs);
+  
   const dispatch = useDispatch();
 
   useEffect(() => {

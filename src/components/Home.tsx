@@ -12,10 +12,9 @@ import { fetchJobs } from "../redux/jobSlice/JobSlice.jsx";
 const Home = () => {
   const dispatch = useDispatch();
   const { jobs, status, error } = useSelector((state) => {
-    console.log(state);
-    return state.jobs;
+   return state.jobs;
   });
-  console.log(jobs);
+ 
   const theme = useContext(ThemeContext);
 
 
