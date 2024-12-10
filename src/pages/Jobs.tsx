@@ -21,8 +21,7 @@ export interface SingleJob {
 
 const Jobs = () => {
   const { allJobs, jobData, status, error } = useSelector(
-    (state) => state.jobs
-  );
+    (state) => state.jobs);
   console.log("allJobs", allJobs);
   console.log("jobData", jobData);
   const dispatch = useDispatch();
@@ -36,29 +35,7 @@ const Jobs = () => {
     dispatch(filterJobs(e.target.value));
   };
 
-  // const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const filterValue = e.target.value;
-  //   return filterValue === "" ? jobs
-  //     : jobs.filter((singleJob) =>
-  //         singleJob.title.toLowerCase().includes(filterValue)
-  //       );
-  // };
-  // const [jobData, setJobData] = useState([]);
-  // const [allJobs, setAllJobs] = useState([]);
-
-  // const getJobs = async () => {
-  //   try {
-  //     let response = await axios.get("http://localhost:5000/jobs");
-  //     setJobData(response.data);
-  //     setAllJobs(response.data);
-  //   } catch (error) {
-  //     console.log("Jobs page Error", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getJobs();
-  // }, []);
+ 
   // const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   if (e.target.value !== "") {
   //     const temperaryarray = allJobs.filter((singleJob: SingleJob) => {
@@ -133,31 +110,6 @@ const Jobs = () => {
             Browse Jobs
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* {status === "loading" ? (
-              <p>Loading...</p>
-            ) : status === "failed" ? (
-              <p>{error}</p>
-            ) : jobs.length > 0 ? 
-              handleChangeValue(e).map((job) => (
-                <div key={job.id}>
-                  <JobCard singleJob={job} />
-                </div>
-              ))
-            ) : (
-              <p className="text-center">No Job available yet...</p>
-            )} */}
-            {/* {jobs.length !== 0 ? (
-              jobs.map((job: SingleJob) => {
-                return (
-                  <div key={job.id}>
-                    <JobCard singleJob={job} />
-                  </div>
-                );
-              })
-            ) : (
-              <p className="text-center">No Job available yet...</p>
-            )} */}
-
             {status === "loading" && <p>Loading...</p>}
             {status === "failed" && <p>{error}</p>}
             {jobData.length > 0 ? (

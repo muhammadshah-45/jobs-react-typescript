@@ -5,6 +5,7 @@ import '../components/home.css'
 import axios from 'axios';
 import { ThemeContext } from '../../context/theme/Theme';
 import { Company, JobEType, SingleJob } from '../components/types';
+import toast from 'react-hot-toast';
 
 
 
@@ -109,7 +110,7 @@ const Add_job = () => {
         console.log("Update api call")
       } else{
          await axios.post("http://localhost:5000/jobs",job)
-        console.log("post api call")
+        toast.success("Job added successfully")
       }
      
     } catch (error) {

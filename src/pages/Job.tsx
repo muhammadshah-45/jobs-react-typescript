@@ -7,17 +7,29 @@ import Navbar from '../components/Navbar';
 import axios from 'axios';
 import { ThemeContext } from '../../context/theme/Theme';
 import {SingleJob} from '../components/types'
+import toast from 'react-hot-toast';
+import {deleteJob} from '../redux/jobSlice/jobSlice.jsx'
+import { useDispatch, useSelector } from 'react-redux';
 const Job = () => {
+  const {jobData ,status,error} = useSelector(state=>state.jobs);
+  const dipatch = useDispatch();
   const location = useLocation();
   const {singleJob}:{singleJob:SingleJob} = location.state || {singleJob:null};
  const theme = useContext(ThemeContext)
-  const handleDeleteJob = async ()=>{
-    try {
-      let response = await axios.delete(`http://localhost:5000/jobs/${singleJob.id}`)
-      console.log("Delete Job api call")
-    } catch (error) {
-      console.log("Delete Job Error",error)
+  // const handleDeleteJob = async ()=>{
+  //   try {
+  //     let response = await axios.delete(`http://localhost:5000/jobs/${singleJob.id}`)
+  //     toast.success("Delete Job api call")
+  //   } catch (error) {
+  //     console.log("Delete Job Error",error)
+  //   }
+  // }
+  const handleDeleteJob =(jobId)=>{
+    if(window.confirm("are you sure to delete this job?")){
+      dipatch(deleteJob(jobId));
+
     }
+    toast.success("Job Deleted Successfully")
   }
 
   return (
@@ -103,7 +115,7 @@ const Job = () => {
                 to="/add-job" state={{singleJob}}
                 className="bg-green-500 hover:bg-green-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
                 >Edit Job</Link>
-              <button onClick={handleDeleteJob}
+              <button onClick={()=>handleDeleteJob(singleJob.id)}
                 className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
               >
                 Delete Job
