@@ -59,7 +59,7 @@ export const JobSlice = createSlice({
       .addCase(deleteJob.pending,(state)=>{
         state.status = 'loading'
       })
-      .addCase(deleteJob.fulfilled,(state,action:PayloadAction<number>)=>{
+      .addCase(deleteJob.fulfilled,(state,action:PayloadAction<number| string >)=>{
         state.status ='succeeded';
         state.jobData = state.jobData.filter(job=> job.id !== action.payload)
       })

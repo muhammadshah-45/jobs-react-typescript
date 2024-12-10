@@ -224,7 +224,7 @@ const Add_job = () => {
                   onChange={(e) => handleChange(e, "description")}
                   name="description"
                   className="border rounded w-full py-2 px-3"
-                  rows="4"
+                  // rows="4"
                   placeholder="Add any job duties, expectations, requirements, etc"
                 ></textarea>
               </div>
@@ -297,7 +297,7 @@ const Add_job = () => {
                   value={job.company.description}
                   onChange={(e) => handleChange(e, "description", "company")}
                   className="border rounded w-full py-2 px-3"
-                  rows="4"
+                  // rows ="4"
                   placeholder="What does your company do?"
                 ></textarea>
               </div>
